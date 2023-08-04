@@ -39,3 +39,17 @@ CREATE TABLE cost
     cost_unit   varchar(50)  null,
     amount      double precision
 );
+
+drop table if exists person;
+CREATE TABLE person
+(
+    id      SERIAL PRIMARY KEY,
+    name    varchar(100) NOT NULL,
+    phone   varchar(16)  NULL,
+    email   varchar(50)  NOT NULL UNIQUE,
+    address varchar(200) NULL,
+    city    varchar(50)  NULL,
+    state   varchar(50)  NULL,
+    zip     int,
+    type    varchar(50)  NOT NULL CHECK ( type IN ('customer', 'staff') )
+);
