@@ -15,6 +15,7 @@
     <description>manufacturing-manager-api</description>
     <properties>
         <java.version>17</java.version>
+        <flyway.version>9.16.3</flyway.version>
     </properties>
     <dependencies>
         <dependency>
@@ -24,6 +25,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>${flyway.version}</version>
         </dependency>
 
         <dependency>
@@ -63,6 +69,27 @@
                     </excludes>
                 </configuration>
             </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.flywaydb</groupId>-->
+<!--                <artifactId>flyway-maven-plugin</artifactId>-->
+<!--                <version>${flyway.version}</version>-->
+<!--                <configuration>-->
+<!--                    <sqlMigrationSeparator>__</sqlMigrationSeparator>-->
+<!--                    <locations>-->
+<!--                        <location>filesystem:src/main/resources/db/migrations</location>-->
+<!--                    </locations>-->
+<!--&lt;!&ndash;                    <url>${database.url}</url>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <user>${database.user}</user>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <password>${database.password}</password>&ndash;&gt;-->
+<!--                </configuration>-->
+<!--&lt;!&ndash;                <dependencies>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <groupId>postgresql</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <artifactId>postgresql</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <version>${postgres.driver.version}</version>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                    </dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;                </dependencies>&ndash;&gt;-->
+<!--            </plugin>-->
         </plugins>
     </build>
 
