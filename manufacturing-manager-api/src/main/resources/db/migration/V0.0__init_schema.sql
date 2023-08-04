@@ -53,3 +53,34 @@ CREATE TABLE person
     zip     int,
     type    varchar(50)  NOT NULL CHECK ( type IN ('customer', 'staff') )
 );
+
+drop table if exists image;
+CREATE TABLE image
+(
+    id         SERIAL PRIMARY KEY,
+    size       int default 0,
+    file_name  varchar(50) NOT NULL,
+    image_data OID
+);
+
+drop table if exists raw_goods;
+CREATE TABLE raw_goods
+(
+    id                SERIAL PRIMARY KEY,
+    name              varchar(50) NOT NULL,
+    type_id           varchar(10),
+    upc               varchar(20) NOT NULL UNIQUE,
+    reorder_qty       int              default 0,
+    min_qty           int              default 0,
+    qty_on_hand       int              default 0,
+    amount            double precision default 0,
+    purchase_unit_qty int              default 0,
+    uom_id            varchar(5),
+    purchase_unit_id  varchar(10),
+    image_id          int,
+    FOREIGN KEY (type_id) REFERENCES raw_goods_type (id),
+    FOREIGN KEY (image_id) REFERENCES image (id),
+    FOREIGN KEY (purchase_unit_id) REFERENCES purchase_unit (id),
+    FOREIGN KEY (uom_id) REFERENCES unit_of_measure (id)
+);
+
