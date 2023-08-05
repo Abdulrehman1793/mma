@@ -84,3 +84,21 @@ CREATE TABLE raw_goods
     FOREIGN KEY (uom_id) REFERENCES unit_of_measure (id)
 );
 
+drop table if exists finished_goods;
+CREATE TABLE finished_goods
+(
+    id          SERIAL PRIMARY KEY,
+    name        varchar(50)  NOT NULL UNIQUE,
+    type_id     varchar(10),
+    description varchar(500) NOT NULL,
+    batch_qty   int              default 0,
+    sales_price double precision default 0,
+    batch_cost  double precision default 0,
+    item_cost   double precision default 0,
+    item_profit double precision default 0,
+    qty_on_hand int              default 0,
+    image_id    int,
+    FOREIGN KEY (type_id) REFERENCES finished_goods_type (id),
+    FOREIGN KEY (image_id) REFERENCES image (id)
+);
+
