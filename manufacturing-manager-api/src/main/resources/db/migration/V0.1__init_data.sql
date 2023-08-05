@@ -18,8 +18,10 @@ VALUES ('bag', 'Bag'),
 
 INSERT INTO raw_goods_type(id, name, description)
 VALUES ('fruit', 'Fruit', null),
-       ('bgd', 'Baking good', null),
-       ('fat', 'Fat', null);
+       ('bkg', 'Baking', null),
+       ('fat', 'Fat', null),
+       ('mkp', 'Milk Products', null),
+       ('s&n', 'Seeds & Nuts', null);
 
 INSERT INTO finished_goods_type(id, name, description)
 VALUES ('bread', 'Bread', null),
