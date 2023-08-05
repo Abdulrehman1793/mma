@@ -109,6 +109,7 @@ CREATE TABLE bom_items
 (
     id               SERIAL PRIMARY KEY,
     bom_id           int,
+    name             varchar(50) not null,
     raw_goods_id     int,
     cost_id          int,
     qty              int              default 0,
@@ -122,6 +123,8 @@ CREATE TABLE bom_items
     FOREIGN KEY (bom_id) REFERENCES bom (id),
     FOREIGN KEY (purchase_unit_id) REFERENCES purchase_unit (id),
     FOREIGN KEY (uom_id) REFERENCES unit_of_measure (id),
-    FOREIGN KEY (type_id) REFERENCES product_type (id)
+    FOREIGN KEY (type_id) REFERENCES product_type (id),
+    FOREIGN KEY (raw_goods_id) REFERENCES raw_goods (id),
+    FOREIGN KEY (cost_id) REFERENCES cost (id)
 );
 
