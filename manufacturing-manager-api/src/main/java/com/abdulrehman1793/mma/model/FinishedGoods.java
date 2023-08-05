@@ -18,7 +18,7 @@ public class FinishedGoods {
     private String name;
 
     @ManyToOne
-    private FinishedGoodsType type;
+    private ProductType type;
 
     @Column(length = 500, nullable = false)
     private String description;

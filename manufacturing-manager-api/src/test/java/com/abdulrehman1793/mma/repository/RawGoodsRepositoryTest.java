@@ -12,15 +12,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class RawGoodsRepositoryTest {
     private final RawGoodsRepository rawGoodsRepository;
-    private final RawGoodsTypeRepository rawGoodsTypeRepository;
+    private final ProductTypeRepository productTypeRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
 
     @Autowired
     public RawGoodsRepositoryTest(RawGoodsRepository rawGoodsRepository,
-                                  RawGoodsTypeRepository rawGoodsTypeRepository,
+                                  ProductTypeRepository productTypeRepository,
                                   UnitOfMeasureRepository unitOfMeasureRepository) {
         this.rawGoodsRepository = rawGoodsRepository;
-        this.rawGoodsTypeRepository = rawGoodsTypeRepository;
+        this.productTypeRepository = productTypeRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
     }
 
@@ -28,7 +28,7 @@ class RawGoodsRepositoryTest {
     public void testSaveAndGetRawGoods() {
         RawGoods rawGoods = RawGoods.builder()
                 .name("Flour")
-                .type(rawGoodsTypeRepository.findById("bkg").orElse(null))
+                .type(productTypeRepository.findById("bkg").orElse(null))
                 .upc("123456789012")
                 .reorderQty(100)
                 .minQty(0)

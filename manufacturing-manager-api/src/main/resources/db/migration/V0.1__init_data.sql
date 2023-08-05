@@ -16,45 +16,54 @@ VALUES ('bag', 'Bag'),
        ('pkt', 'Packet'),
        ('tub', 'Tub');
 
-INSERT INTO raw_goods_type(id, name, description)
-VALUES ('fruit', 'Fruit', null),
-       ('bkg', 'Baking', null),
-       ('fat', 'Fat', null),
-       ('mkp', 'Milk Products', null),
-       ('s&n', 'Seeds & Nuts', null);
+INSERT INTO product_type(id, name, description, type)
+VALUES ('fruit', 'Fruit', null, 'raw'),
+       ('bkg', 'Baking', null, 'raw'),
+       ('fat', 'Fat', null, 'raw'),
+       ('mkp', 'Milk Products', null, 'raw'),
+       ('s&n', 'Seeds & Nuts', null, 'raw'),
+       ('bread', 'Bread', null, 'finished'),
+       ('pastry', 'Pastry', null, 'finished'),
+       ('pie', 'Pie', null, 'finished'),
+       ('cake', 'Cake', null, 'finished'),
+       ('svry', 'Savory', null, 'finished'),
+       ('mtrl', 'Material', null, 'others'),
+       ('serv', 'Service', null, 'others'),
+       ('trans', 'Transportation', null, 'others'),
+       ('fcilty', 'Facility', null, 'others'),
+       ('ovrhd', 'Overhead', null, 'others'),
+       ('lbr', 'Labor', null, 'others'),
+       ('mntnc', 'Maintenance', null, 'others'),
+       ('qlty', 'Quality', null, 'others'),
+       ('mrktng', 'Marketing', null, 'others'),
+       ('deprctn', 'Depreciation', null, 'others'),
+       ('r&d', 'R & D', null, 'others');
 
-INSERT INTO finished_goods_type(id, name, description)
-VALUES ('bread', 'Bread', null),
-       ('pastry', 'Pastry', null),
-       ('pie', 'Pie', null),
-       ('cake', 'Cake', null),
-       ('savory', 'Savory', null);
-
-INSERT INTO cost(name, description, cost_type, cost_unit, amount)
-VALUES ('Packaging Materials', 'Cost of containers, boxes, bags, labels, and other packaging materials', 'Material',
+INSERT INTO cost(name, description, type_id, cost_unit, amount)
+VALUES ('Packaging Materials', 'Cost of containers, boxes, bags, labels, and other packaging materials', 'mtrl',
         'Box', 10.00),
-       ('Packaging Design', 'Cost of graphic design services or creating custom packaging designs', 'Service',
+       ('Packaging Design', 'Cost of graphic design services or creating custom packaging designs', 'serv',
         'Hour', 35.9),
-       ('Shipping and Freight', 'Cost of transporting raw materials and delivering finished goods', 'Transportation',
+       ('Shipping and Freight', 'Cost of transporting raw materials and delivering finished goods', 'trans',
         'Kilometer', 05.6),
        ('Storage & WH Costs', 'Cost of renting or maintaining storage space for raw materials and finished goods',
-        'Facility', 'Week', 300.00),
-       ('Utilities', 'Cost of electricity, water, and other utilities', 'Overhead', 'Month', 1200),
-       ('Labor', 'Cost of hiring and paying employees involved in the baking or manufacturing', 'Labor', 'Hour', 45),
-       ('Equip. & Maint.', 'Cost of maintaining and servicing baking equipment and machinery', 'Maintenance', 'Hour',
+        'fcilty', 'Week', 300.00),
+       ('Utilities', 'Cost of electricity, water, and other utilities', 'ovrhd', 'Month', 1200),
+       ('Labor', 'Cost of hiring and paying employees involved in the baking or manufacturing', 'lbr', 'Hour', 45),
+       ('Equip. & Maint.', 'Cost of maintaining and servicing baking equipment and machinery', 'mntnc', 'Hour',
         125),
-       ('Packaging Labor', 'Cost of labor associated with packaging, labeling, and preparing goods', 'Labor', 'Hour',
+       ('Packaging Labor', 'Cost of labor associated with packaging, labeling, and preparing goods', 'lbr', 'Hour',
         35.5),
-       ('Quality Control', 'Cost of inspections, tests, and quality control measures', 'Quality', 'Hour', 45),
-       ('Marketing & Adv.', 'Cost of promotional materials, advertising campaigns, and marketing', 'Marketing', 'Hour',
+       ('Quality Control', 'Cost of inspections, tests, and quality control measures', 'qlty', 'Hour', 45),
+       ('Marketing & Adv.', 'Cost of promotional materials, advertising campaigns, and marketing', 'mrktng', 'Hour',
         65.7),
-       ('Insurance', 'Cost of insurance coverage for the facility, equipment, and liability', 'Overhead', 'Month',
+       ('Insurance', 'Cost of insurance coverage for the facility, equipment, and liability', 'ovrhd', 'Month',
         1500),
-       ('Admin. Expenses', 'Cost of office supplies, software licenses, accounting services, etc.', 'Overhead', 'Month',
+       ('Admin. Expenses', 'Cost of office supplies, software licenses, accounting services, etc.', 'ovrhd', 'Month',
         1200),
-       ('Equip. Depreciation', 'Cost of equipment depreciation over time', 'Depreciation', 'Month', 1000),
-       ('Research & Dev.', 'Cost of developing new recipes and improving products', 'R & D', 'Hour', 55),
-       ('Waste Disposal', 'Cost of proper waste disposal and recycling processes', 'Overhead', 'Month', 400);
+       ('Equip. Depreciation', 'Cost of equipment depreciation over time', 'deprctn', 'Month', 1000),
+       ('Research & Dev.', 'Cost of developing new recipes and improving products', 'r&d', 'Hour', 55),
+       ('Waste Disposal', 'Cost of proper waste disposal and recycling processes', 'ovrhd', 'Month', 400);
 
 INSERT INTO person (name, phone, email, address, city, state, zip, type)
 VALUES ('Fred Fredders', '(328) 614-7299', 'fredfredders@gmail.com', 'P.O. Box 148, 1324 Iaculis Av.', 'Racine', 'MI',

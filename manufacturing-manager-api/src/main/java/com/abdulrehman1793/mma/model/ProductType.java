@@ -1,8 +1,7 @@
 package com.abdulrehman1793.mma.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.abdulrehman1793.mma.model.enums.Type;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
@@ -11,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Entity
-public class FinishedGoodsType {
+public class ProductType {
     @Id
     @Column(length = 10, nullable = false)
     private String id;
@@ -21,4 +20,8 @@ public class FinishedGoodsType {
 
     @Column(length = 250)
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 15, nullable = false)
+    private Type type;
 }

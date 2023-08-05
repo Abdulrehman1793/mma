@@ -18,7 +18,7 @@ public class RawGoods {
     private String name;
 
     @ManyToOne
-    private RawGoodsType type;
+    private ProductType type;
 
     @Column(length = 20, unique = true, nullable = false)
     private String upc;

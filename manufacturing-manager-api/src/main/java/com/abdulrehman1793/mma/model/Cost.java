@@ -20,8 +20,8 @@ public class Cost {
     @Column(length = 500)
     private String description;
 
-    @Column(length = 50)
-    private String costType;
+    @ManyToOne
+    private ProductType type;
 
     @Column(length = 50)
     private String costUnit;
