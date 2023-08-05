@@ -1,7 +1,10 @@
 package com.abdulrehman1793.mma.model;
 
+import com.abdulrehman1793.mma.model.enums.OrderType;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,8 +18,31 @@ public class Orders {
     private int id;
 
     @ManyToOne
-    private Person person;
+    private Person customer;
 
-    @Column(length = 10)
+    @ManyToOne
+    private Person employee;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 7, nullable = false)
+    private OrderType orderType;
+
+    @Column(length = 10, nullable = false)
     private String status;
+
+    @Builder.Default
+    private LocalDate orderDate = LocalDate.now();
+
+    private LocalDate dueDate;
+
+    @Builder.Default
+    private double orderTotal = 0.00;
+
+    private int progress;
+
+    private LocalDate qualityCheckDate;
+
+    @ManyToOne
+    @JoinColumn(name = "checked_by", referencedColumnName = "id")
+    private Person checkedBy;
 }

@@ -131,12 +131,23 @@ CREATE TABLE bom_items
 drop table if exists orders;
 CREATE TABLE orders
 (
-    id        SERIAL PRIMARY KEY,
-    person_id int,
-    status    varchar(10) NOT NULL CHECK ( status IN
-                                           ('pending', 'started', 'progress', 'completed', 'ordered', 'shipped',
-                                            'delivered', 'received', 'created', 'sent', 'completed', 'paid') ),
-    FOREIGN KEY (person_id) REFERENCES person (id)
+    id                 SERIAL PRIMARY KEY,
+    order_type         varchar(7)  NOT NULL CHECK ( order_type IN ('work', 'purchase', 'sales') ),
+    customer_id        int,
+    employee_id        int,
+    order_date         date,
+    due_date           date,
+    order_total        double precision default 0.00,
+    status             varchar(10) NOT NULL CHECK ( status IN
+                                                    ('pending', 'started', 'progress', 'completed', 'ordered',
+                                                     'shipped',
+                                                     'delivered', 'received', 'created', 'sent', 'completed', 'paid') ),
+    progress           int,
+    quality_check_date date,
+    checked_by         int,
+    FOREIGN KEY (customer_id) REFERENCES person (id),
+    FOREIGN KEY (employee_id) REFERENCES person (id),
+    FOREIGN KEY (checked_by) REFERENCES person (id)
 );
 
 drop table if exists work_order;
@@ -144,11 +155,13 @@ CREATE TABLE work_order
 (
     id                SERIAL PRIMARY KEY,
     finished_goods_id int,
-    full_batch        double precision default 0.00,
-    actual_qty        double precision default 0.00,
+    status            varchar(10) NOT NULL default 'pending' CHECK ( status IN ('pending', 'started', 'progress', 'completed') ),
+    order_date        date,
+    full_batch        double precision     default 0.00,
+    actual_qty        double precision     default 0.00,
     type_id           varchar(10),
-    batch_cost        double precision default 0.00,
-    actual_cost       double precision default 0.00,
+    batch_cost        double precision     default 0.00,
+    actual_cost       double precision     default 0.00,
     orders_id         int,
     FOREIGN KEY (orders_id) REFERENCES orders (id),
     FOREIGN KEY (type_id) REFERENCES product_type (id),
@@ -160,11 +173,13 @@ CREATE TABLE purchase_order
 (
     id           SERIAL PRIMARY KEY,
     raw_goods_id int,
+    status       varchar(10) NOT NULL default 'pending' CHECK ( status IN ('pending', 'ordered', 'shipped', 'delivered', 'received') ),
+    order_date   date,
     upc          varchar(20) NOT NULL,
-    qty          double precision default 0.00,
+    qty          double precision     default 0.00,
     uom_id       varchar(5),
-    item_cost    double precision default 0.00,
-    total_cost   double precision default 0.00,
+    item_cost    double precision     default 0.00,
+    total_cost   double precision     default 0.00,
     orders_id    int,
     FOREIGN KEY (orders_id) REFERENCES orders (id),
     FOREIGN KEY (uom_id) REFERENCES unit_of_measure (id),
@@ -176,10 +191,12 @@ CREATE TABLE sales_order
 (
     id                SERIAL PRIMARY KEY,
     finished_goods_id int,
-    qty               double precision default 0.00,
+    status            varchar(10) NOT NULL default 'created' CHECK ( status IN ('created', 'sent', 'completed', 'paid') ),
+    order_date        date,
+    qty               double precision     default 0.00,
     type_id           varchar(10),
-    sale_price        double precision default 0.00,
-    total_price       double precision default 0.00,
+    sale_price        double precision     default 0.00,
+    total_price       double precision     default 0.00,
     orders_id         int,
     FOREIGN KEY (orders_id) REFERENCES orders (id),
     FOREIGN KEY (type_id) REFERENCES product_type (id),

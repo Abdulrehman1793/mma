@@ -1,7 +1,10 @@
 package com.abdulrehman1793.mma.model;
 
+import com.abdulrehman1793.mma.model.enums.SalesOrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -16,6 +19,14 @@ public class SalesOrder {
 
     @ManyToOne
     private FinishedGoods finishedGoods;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 10, nullable = false)
+    private SalesOrderStatus status;
+
+    @Builder.Default
+    private LocalDate orderDate = LocalDate.now();
+
 
     @Builder.Default
     private double qty = 0.00;

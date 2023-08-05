@@ -1,7 +1,10 @@
 package com.abdulrehman1793.mma.model;
 
+import com.abdulrehman1793.mma.model.enums.WorkOrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -16,6 +19,13 @@ public class WorkOrder {
 
     @ManyToOne
     private FinishedGoods finishedGoods;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 10, nullable = false)
+    private WorkOrderStatus status;
+
+    @Builder.Default
+    private LocalDate orderDate = LocalDate.now();
 
     @Builder.Default
     private double fullBatch = 0.00;
