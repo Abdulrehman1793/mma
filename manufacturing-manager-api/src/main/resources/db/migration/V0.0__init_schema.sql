@@ -143,8 +143,6 @@ drop table if exists work_order;
 CREATE TABLE work_order
 (
     id                SERIAL PRIMARY KEY,
---     person_id         int,
---     status            varchar(10) NOT NULL default 'pending' CHECK ( status IN ('pending', 'started', 'progress', 'completed') ),
     finished_goods_id int,
     full_batch        double precision default 0.00,
     actual_qty        double precision default 0.00,
@@ -152,7 +150,6 @@ CREATE TABLE work_order
     batch_cost        double precision default 0.00,
     actual_cost       double precision default 0.00,
     orders_id         int,
---     FOREIGN KEY (person_id) REFERENCES person (id),
     FOREIGN KEY (orders_id) REFERENCES orders (id),
     FOREIGN KEY (type_id) REFERENCES product_type (id),
     FOREIGN KEY (finished_goods_id) REFERENCES finished_goods (id)
@@ -162,8 +159,6 @@ drop table if exists purchase_order;
 CREATE TABLE purchase_order
 (
     id           SERIAL PRIMARY KEY,
---     person_id    int,
---     status       varchar(10) NOT NULL default 'pending' CHECK ( status IN ('pending', 'ordered', 'shipped', 'delivered', 'received') ),
     raw_goods_id int,
     upc          varchar(20) NOT NULL,
     qty          double precision default 0.00,
@@ -171,7 +166,6 @@ CREATE TABLE purchase_order
     item_cost    double precision default 0.00,
     total_cost   double precision default 0.00,
     orders_id    int,
---     FOREIGN KEY (person_id) REFERENCES person (id),
     FOREIGN KEY (orders_id) REFERENCES orders (id),
     FOREIGN KEY (uom_id) REFERENCES unit_of_measure (id),
     FOREIGN KEY (raw_goods_id) REFERENCES raw_goods (id)
@@ -181,15 +175,12 @@ drop table if exists sales_order;
 CREATE TABLE sales_order
 (
     id                SERIAL PRIMARY KEY,
---     person_id         int,
---     status            varchar(10) NOT NULL default 'created' CHECK ( status IN ('created', 'sent', 'completed', 'paid') ),
     finished_goods_id int,
     qty               double precision default 0.00,
     type_id           varchar(10),
     sale_price        double precision default 0.00,
     total_price       double precision default 0.00,
     orders_id         int,
---     FOREIGN KEY (person_id) REFERENCES person (id),
     FOREIGN KEY (orders_id) REFERENCES orders (id),
     FOREIGN KEY (type_id) REFERENCES product_type (id),
     FOREIGN KEY (finished_goods_id) REFERENCES finished_goods (id)
