@@ -29,7 +29,7 @@ class RawGoodsRepositoryTest {
         RawGoods rawGoods = RawGoods.builder()
                 .name("Flour")
                 .type(productTypeRepository.findById("bkg").orElse(null))
-                .upc("123456789012")
+                .upc("123456789093")
                 .reorderQty(100)
                 .minQty(0)
                 .qtyOnHand(100)
