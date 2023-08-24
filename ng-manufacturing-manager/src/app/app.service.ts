@@ -1,40 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { EMPTY, Observable, of } from 'rxjs';
-import { Store, select } from '@ngrx/store';
-import { getElements } from './store/action';
-import { isElementLoading } from './store/selectors';
-import { AppState } from './app.state';
+import { Injectable } from '@angular/core';
+import { Observable, delay, of } from 'rxjs';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+@Injectable({
+  providedIn: 'root',
 })
-export class AppComponent implements OnInit {
-  columns: string[] = ['position', 'name', 'weight', 'symbol'];
+export class AppService {
+  constructor() {}
 
-  rows$: Observable<any[]> = EMPTY;
-  loading$: Observable<boolean> = of(false);
-
-  constructor(private store: Store<AppState>) {
-    this.loading$ = store.pipe(select(isElementLoading));
-    this.rows$ = of(ELEMENT_DATA);
+  getElements(): Observable<PeriodicElement[]> {
+    return of(ELEMENT_DATA).pipe(delay(1000));
   }
-
-  ngOnInit(): void {
-    this.store.dispatch(getElements());
-  }
-
-  handleChange(event: any) {
-    console.log(event);
-  }
-}
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
@@ -59,3 +34,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
   { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
   { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
 ];
+
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
